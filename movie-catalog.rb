@@ -2,45 +2,16 @@ require 'json'
 
 FILE_PATH = "catalog.json"
 
-# def load
-#   data = nil
-#   File.open(FILE_PATH) do |f|
-#     data = JSON.parse(f.read)
-#   end
-#   data
-# end
-
-
-
 def save(data)
   File.open(FILE_PATH, "w+") do |f|
     f << data.to_json
   end
 end
 
-# def process
-#   catalog = load
-
-#   p catalog
-
-#   catalog["Memento"] = 3
-#   save(catalog)
-# end
-
-# process
-# # => {"Memento"=>3, "Primer"=>4, "Ishtar"=>1}
-# catalog = load
-
-# p catalog
-# {"Memento"=>4, "Primer"=>4, "Ishtar"=>1}
-# movies = catalog
 file = File.read(FILE_PATH)
 movies = JSON.parse(file)
-#puts movies[:lars]
 
 movies.transform_keys!(&:to_sym)
-
-
 
 puts "What would you like to do?"
 puts "-- add"
