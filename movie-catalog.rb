@@ -24,14 +24,14 @@ case choice
   when "add"
     puts "Movie title: "
     title = gets.chomp
-    puts "Rating: "
-    rating = gets.chomp
-    if movies[title.to_sym] == nil
+    if movies[title.to_sym] != nil
+      puts "Error. Movie already listed!"
+    else
+      puts "Rating: "
+      rating = gets.chomp
       movies[title.to_sym] = rating.to_i
       save(movies)
       puts "#{title} added with a rating of #{rating}"
-    else 
-      puts "Error. Movie already listed!"
     end
   
   when "update"
@@ -43,8 +43,8 @@ case choice
       puts "Rating: "
       rating = gets.chomp
       movies[title.to_sym] = rating.to_i
-      puts "#{title} updated to a rating of #{rating}"
       save(movies)
+      puts "#{title} updated to a rating of #{rating}"
     end
   
   when "display"
@@ -54,9 +54,10 @@ case choice
     puts "What movie would you like to delete? "
     title = gets.chomp
     if movies[title.to_sym].nil? 
-      puts "That movie does not exist."
+      puts "Movie does not listed."
     else
       movies.delete(title.to_sym)
+      save(movies)
       puts "Deleted"
     end
   else 
