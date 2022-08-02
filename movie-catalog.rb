@@ -2,10 +2,15 @@ require 'json'
 
 FILE_PATH = "catalog.json"
 
-def save(data)
+def save_to_file(data)
   File.open(FILE_PATH, "w+") do |f|
     f << data.to_json
   end
+end
+
+def add_movie_and_save(movies, title, rating)
+  movies[title.to_sym] = rating.to_sym
+  save_to_file(movies)
 end
 
 file = File.read(FILE_PATH)
@@ -29,8 +34,7 @@ case choice
     else
       puts "Rating: "
       rating = gets.chomp
-      movies[title.to_sym] = rating.to_i
-      save(movies)
+      add_movie_and_save(movies, title, rating)
       puts "#{title} added with a rating of #{rating}"
     end
   
@@ -42,8 +46,7 @@ case choice
     else 
       puts "Rating: "
       rating = gets.chomp
-      movies[title.to_sym] = rating.to_i
-      save(movies)
+      add_movie_and_save(movies, title, rating)
       puts "#{title} updated to a rating of #{rating}"
     end
   
@@ -57,7 +60,7 @@ case choice
       puts "Movie does not listed."
     else
       movies.delete(title.to_sym)
-      save(movies)
+      save_to_file(movies)
       puts "Deleted"
     end
   else 
